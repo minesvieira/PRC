@@ -29,13 +29,9 @@
         <p> Defini que todos os alunos iriam pertencer ao curso de MIEI e à cadeira de PRI, visto que na folha de cálculo não existia a célula de curso e cadeira associado.</p>
         <p> Com este script, transformei cada aluno na ontologia pretendida com a mesma estrutura gerada anteriormente.</p>
         
-        <p>
-            Por fim, para testar a resolução efetuada, a ontologia foi carregada para um projeto de <b>GraphDB</b>, sendo que todos os registos se encontravam representados como pretendido.
-        </p>
-        
     </abstract>
     <deliverables>
-        <deliverable path="pr.html">github</deliverable>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC1">O meu github</deliverable>
     </deliverables>
 </pr>
 
