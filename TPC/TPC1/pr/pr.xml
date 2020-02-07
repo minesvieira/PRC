@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 1</title>
+        <subtitle>Ontologias </subtitle>
+        <bdate>Fevereiro 2020</bdate>
+        <edate>Fevereiro 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>mariainesvpinto14@hotmail.com</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi acrescentar duas Unidades Curriculares, um professor e uma lista de alunos à ontologia feita durante a aula.</p> 
+        <p> A lista de alunos que tinhamos de adicionar à ontologia, estava em formato csv <i> (Excel)</i></p>
+        <p> Comecei por fazer download da lista de alunos. Seguidamente, escrevi um <i>script</i> em Python para ler a informação da lista de alunos em formato csv.</p>
+        <p> Atribui a cada entrada do ficheiro a valor correspondente a cada aluno: nome, número e email, em que o email corresponderia ao número do aluno, seguido de "@alunos.uminho.pt".</p>
+        <p> Defini que todos os alunos iriam pertencer ao curso de MIEI e à cadeira de PRI, visto que na folha de cálculo não existia a célula de curso e cadeira associado.</p>
+        <p> Com este script, transformei cada aluno na ontologia pretendida com a mesma estrutura gerada anteriormente.</p>
+        
+        <p>
+            Por fim, para testar a resolução efetuada, a ontologia foi carregada para um projeto de <b>GraphDB</b>, sendo que todos os registos se encontravam representados como pretendido.
+        </p>
+        
+    </abstract>
+    <deliverables>
+        <deliverable path="pr.html">github</deliverable>
+    </deliverables>
+</pr>
+
