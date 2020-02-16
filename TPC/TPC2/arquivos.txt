@@ -1,0 +1,18 @@
+Obra:
+titulo
+tipo 
+compositor
+
+obra contem instrumentos
+instrumentos sãoContidos obra
+
+instrumento:
+designacao
+
+instrumento define uma partitura
+uma partitura é definida por um instrumentos
+
+partitura:
+type
+voz
+path

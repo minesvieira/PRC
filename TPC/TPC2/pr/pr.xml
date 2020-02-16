@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 2</title>
+        <subtitle>Ontologias de um arquivo musical </subtitle>
+        <bdate>Fevereiro 2020</bdate>
+        <edate>Fevereiro 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>pg39292@alunos.uminho.pt</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi a criação de uma ontologia para um arquivo musical.</p> 
+        <p> Comecei por verificar a estrutura que pretendia para a definição da ontologia pretendida, pelo que criei 3 classes no <i>Protege</i>: Obra, Instrumento e Partitura.</p>
+        <p> De seguida, defini as relações no <i>Protege</i> entre as classes correspondentes: uma Obra contém um Intrumento, um Instrumento é contido por uma Obra <b> (relação inversa)</b>, uma Partitura define um Instrumento e um Instrumento é definido por uma Partitura.</p>
+        <p> Já com as classes e relações criadas, criamos uma <i>stylesheet em XSL</i> para transformação dos dados no formato necessário para todas as Obras que continham Instrumentos e respetivas Partituras, criando assim as classes individuais de cada um.</p>
+        <p> Por fim, carreguei o ficheiro ttl para o <i>GraphDB</i> de modo a conseguir responder a 4 queries que o professor propôs na aula.</p>
+        <p> Nota: as queries encontram-se na pasta "queries" dentro da diretoria do TPC2. </p>
+        
+    </abstract>
+    <deliverables>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC2">O meu github</deliverable>
+    </deliverables>
+</pr>
+
