@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    div.w3-container.w3-content(style="max-width:1400px;margin-top:80px")
+        div.w3-row
+                div.w3-card.w3-round.w3-blue
+                    .w3-container
+                        h4.w3-center Lista de repositórios
+                br
+                div.w3-card.w3-round.w3-white
+                    .w3-container
+                        table.w3-table-all
+                          each repositorio in repositorios
+                            tr
+                              td=repositorio
+                br
+                br
+    form.w3-container(action="/query" method="post")
+      .w3-container
+        label.w3-cell Repositório:
+        input.w3-input.w3-cell.w3-border(type="text" name="rep")
+        br
+        br
+        label.w3-cell Insira query:
+        input.w3-input.w3-cell.w3-border(type="text" name="query" style="height:110px")
+      input.w3-input(type="submit" value="Executar")
+      br
+      div.w3-card.w3-round.w3-white
+        br
+        h1(style="margin-left:350px") Resultados
+        div
+        <textarea (id="output", cols="100", rows="40" style="margin-left:350px")>
+          | #{resultado} </textarea>
+        button.w3-btn.w3-white.w3-padding(id='apagar') Apagar
+        br
+        br
+                            
+
+                                
+
+                            
+                            
+
+
+
+
+
