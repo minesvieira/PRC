@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Arquivo de Música Digital
+  .w3-container
+    table.w3-table
+      tr
+        th ID
+        th Título
+        th Nº Partituras
+      each o in obras 
+        tr 
+          td= o.id
+          td= o.tit
+          td= o.nparts
+          td 
+            a(href="/" + o.id) 
+              button.w3-button.w3-white Ver Mais

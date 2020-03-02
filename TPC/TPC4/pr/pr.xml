@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 4</title>
+        <subtitle>Interface web para um Arquivo Musical</subtitle>
+        <bdate>Fevereiro 2020</bdate>
+        <edate>Fevereiro 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>pg39292@alunos.uminho.pt</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi a criação de uma aplicação com interface web sobre um Arquivo Musical, através do repositório do <i>GaphDB</i>.</p> 
+        <p> Foi criada uma ontologia para os arquivos musicais. Quando acedemos à interface web, temos uma lista de obras com vários campos sobre essa mesma obra (id, título e nº de partituras). </p>
+        <p> Pretende-se que em cada obra, o utilizador possa ver as partituras dessa obra e as informações sobre a mesma. Para isso, foi criado um botão em cada obra "Ver Mais".</p>
+        <p> Para isso realizei um pedido GET '/' que obtém todos os dados relativos à obra. Seguidamente, um pedido GET '/id' ao clicar no botão "Ver Mais", vai abrir a página com as informações da partitura referentes a essa obra, nomeadamente o path, id, clave e voz.</p>
+    </abstract>
+    <deliverables>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC4">O meu github</deliverable>
+    </deliverables>
+</pr>
+

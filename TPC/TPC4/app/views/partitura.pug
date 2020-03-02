@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Partitura
+  .w3-container
+    table.w3-table-all.w3-card-4
+      tr.w3-hover-blue
+        th ID
+        th Voz
+        th Clave
+        th Path
+        th Afinação
+      each partitura in partituras
+        tr.w3-hover-blue
+          td= partitura.id
+          td= partitura.voz
+          td= partitura.clave
+          td= partitura.path 
+          td= partitura.afinacao
