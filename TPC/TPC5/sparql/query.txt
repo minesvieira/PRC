@@ -1,0 +1,14 @@
+select distinct ?swimmer ?nome ?genero ?bDate ?dDate ?biPlace ?abst where{
+    ?swimmer a dbo:Swimmer.
+    ?swimmer foaf:name ?nome.
+    ?swimmer foaf:gender ?genero.
+    ?swimmer dbo:birthDate ?bDate.
+    FILTER(lang(?nome) = 'en')
+    FILTER(lang(?genero) = 'en')
+    optional {
+        ?swimmer dbo:birthPlace ?birPlace.
+        ?birPlace foaf:name ?biPlace .
+        ?swimmer dbo:deathDate ?dDate.
+        ?swimmer dbo:abstract ?abst.
+    }
+}
