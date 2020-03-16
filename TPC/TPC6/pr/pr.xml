@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 6</title>
+        <subtitle>Ficha sobre Ontologias, DBPedia e Queries SPARQL</subtitle>
+        <bdate>Março 2020</bdate>
+        <edate>Março 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>pg39292@alunos.uminho.pt</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi a realização de uma ficha com 4 exercícios, sobre DBPedia, queries SPARQL, entre outros.</p> 
+        <p>Começando pelo primeiro exercício, era pedido a obtenção de um grafo a partir do <i> GraphDB</i>. O professor disponibilizou a ontologia, que nós tinhamos de corrigir alguns erros e carregar no GraphDB para a visuação do grafo e dos seus nodos.</p>
+        <p> O segundo exercício, era criarmos uma ontologia sobre compras, com 3 entidades: <b> Loja, Produto e Cliente.</b> Nesta ontologia havia 4 ligações que seriam: Loja vende Produto, 
+        o Produto éVendidoPor Loja, Cliente compra Produto e um produto éCompradoPor Cliente. Para além da ontologia, tivemos também de desenvolver alguns queries <i> SPARQL</i>.(Exercicio2/queries.txt)</p>
+        <p> O terceiro exercício, consistia em responder a um conjunto de queries através da <i> DBPedia</i> que se encontra na Pasta Exercicio3/queries.txt.</p>
+        <p> Por fim, o quarto e último exercício era realizar mais queries em <i>Sparql</i> relativas a uma ontologia de Pokemons. Essa ontologia (pokemon.rdf) foi carregada para o GraphDB e posteriormente, procedeu-se à realização das queries. (Exercicio4/queries.txt)</p>
+    </abstract>
+    <deliverables>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC6">O meu github</deliverable>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC6/Exercicio1"> Exercício 1 </deliverable>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC6/Exercicio2/queries.txt"> Exercício 2 </deliverable>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC6/Exercicio3/queries.txt"> Exercício 3 </deliverable>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC6/Exercicio4/queries.txt"> Exercício 4 </deliverable>
+    </deliverables>
+</pr>
+

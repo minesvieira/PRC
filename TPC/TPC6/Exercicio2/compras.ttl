@@ -1,0 +1,283 @@
+@prefix : <http://www.semanticweb.org/maria/ontologies/2020/compras#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/maria/ontologies/2020/compras> .
+
+<http://www.semanticweb.org/maria/ontologies/2020/compras> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#compra
+:compra rdf:type owl:ObjectProperty ;
+        owl:inverseOf :éCompradoPor ;
+        rdfs:domain :Cliente ;
+        rdfs:range :Produto .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#vende
+:vende rdf:type owl:ObjectProperty ;
+       owl:inverseOf :éVendidoPor ;
+       rdfs:domain :Loja ;
+       rdfs:range :Produto .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#éCompradoPor
+:éCompradoPor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#éVendidoPor
+:éVendidoPor rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#codigo
+:codigo rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Produto .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#email
+:email rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Cliente ,
+                   :Loja .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#nome
+:nome rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Cliente ,
+                  :Loja ,
+                  :Produto .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Cliente
+:Cliente rdf:type owl:Class ;
+         rdfs:subClassOf :CompraVenda .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#CompraVenda
+:CompraVenda rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Loja
+:Loja rdf:type owl:Class ;
+      rdfs:subClassOf :CompraVenda .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Produto
+:Produto rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Beatriz
+:Beatriz rdf:type owl:NamedIndividual ,
+                  :Cliente ;
+         :compra :iorgurte ,
+                 :lasanha ;
+         :email "bia@hotmail.com"^^xsd:string ;
+         :nome "Beatriz Salvado"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Continente
+:Continente rdf:type owl:NamedIndividual ,
+                     :Loja ;
+            :vende :nivea ,
+                   :pessego ,
+                   :sumo ,
+                   :vinho ;
+            :email "continente@hotmail.com"^^xsd:string ;
+            :nome "Continente"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Ines
+:Ines rdf:type owl:NamedIndividual ,
+               :Cliente ;
+      :compra :arroz ,
+              :sumo ;
+      :email "ines@gmail.com"^^xsd:string ;
+      :nome "Inês Vieira"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Lidl
+:Lidl rdf:type owl:NamedIndividual ,
+               :Loja ;
+      :vende :iorgurte ,
+             :massa ,
+             :nivea ;
+      :email "lidl@gmail.com"^^xsd:string ;
+      :nome "Lidl"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Maria
+:Maria rdf:type owl:NamedIndividual ,
+                :Cliente ;
+       :compra :bolacha ,
+               :massa ;
+       :email "maria@hotmail.com"^^xsd:string ;
+       :nome "Maria Inês"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Mercearia_Joao
+:Mercearia_Joao rdf:type owl:NamedIndividual ,
+                         :Loja ;
+                :vende :arroz ,
+                       :bolacha ,
+                       :iorgurte ,
+                       :pessego ;
+                :nome "Mercearia do João"^^xsd:string ,
+                      "mm@gmail.com"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Miguel
+:Miguel rdf:type owl:NamedIndividual ,
+                 :Cliente ;
+        :compra :nivea ,
+                :pessego ;
+        :email "miguelmorais@hotmail.com"^^xsd:string ;
+        :nome "Miguel Morais"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#PingoDoce
+:PingoDoce rdf:type owl:NamedIndividual ,
+                    :Loja ;
+           :vende :maca ,
+                  :massa ,
+                  :sumo ,
+                  :vinho ;
+           :email "pouparmais@hotmail.com"^^xsd:string ;
+           :nome "Pingo Doce"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Renata
+:Renata rdf:type owl:NamedIndividual ,
+                 :Cliente ;
+        :compra :maca ,
+                :vinho ;
+        :email "renata@hotmail.com"^^xsd:string ;
+        :nome "Renata"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#Talho_Bairro
+:Talho_Bairro rdf:type owl:NamedIndividual ,
+                       :Loja ;
+              :vende :arroz ,
+                     :lasanha ,
+                     :sumo ,
+                     :vinho ;
+              :email "tailhobarro@gmail.com"^^xsd:string ;
+              :nome "Talho do Bairro"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#arroz
+:arroz rdf:type owl:NamedIndividual ,
+                :Produto ;
+       :éCompradoPor :Ines ;
+       :éVendidoPor :Mercearia_Joao ,
+                    :Talho_Bairro ;
+       :codigo 2222 ;
+       :nome "arroz"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#bolacha
+:bolacha rdf:type owl:NamedIndividual ,
+                  :Produto ;
+         :éCompradoPor :Maria ;
+         :éVendidoPor :Mercearia_Joao ;
+         :codigo 1111 ;
+         :nome "bolacha"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#iorgurte
+:iorgurte rdf:type owl:NamedIndividual ,
+                   :Produto ;
+          :éCompradoPor :Beatriz ;
+          :éVendidoPor :Lidl ,
+                       :Mercearia_Joao ;
+          :codigo 7777 ;
+          :nome "iogurte"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#lasanha
+:lasanha rdf:type owl:NamedIndividual ,
+                  :Produto ;
+         :éCompradoPor :Beatriz ;
+         :éVendidoPor :Talho_Bairro ;
+         :codigo 0010 ;
+         :nome "lasanha"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#maca
+:maca rdf:type owl:NamedIndividual ,
+               :Produto ;
+      :éCompradoPor :Renata ;
+      :éVendidoPor :PingoDoce ;
+      :codigo 6666 ;
+      :nome "maça"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#massa
+:massa rdf:type owl:NamedIndividual ,
+                :Produto ;
+       :éCompradoPor :Maria ;
+       :éVendidoPor :Lidl ,
+                    :PingoDoce ;
+       :codigo 3333 ;
+       :nome "massa"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#nivea
+:nivea rdf:type owl:NamedIndividual ,
+                :Produto ;
+       :éCompradoPor :Miguel ;
+       :éVendidoPor :Continente ,
+                    :Lidl ;
+       :codigo 9999 ;
+       :nome "nivea"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#pessego
+:pessego rdf:type owl:NamedIndividual ,
+                  :Produto ;
+         :éCompradoPor :Miguel ;
+         :éVendidoPor :Continente ,
+                      :Mercearia_Joao ;
+         :codigo 8888 ;
+         :nome "pessego"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#sumo
+:sumo rdf:type owl:NamedIndividual ,
+               :Produto ;
+      :éCompradoPor :Ines ;
+      :éVendidoPor :Continente ,
+                   :PingoDoce ,
+                   :Talho_Bairro ;
+      :codigo 4444 ;
+      :nome "sumo"^^xsd:string .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/compras#vinho
+:vinho rdf:type owl:NamedIndividual ,
+                :Produto ;
+       :éCompradoPor :Renata ;
+       :éVendidoPor :Continente ,
+                    :PingoDoce ,
+                    :Talho_Bairro ;
+       :codigo 5555 ;
+       :nome "vinho"^^xsd:string .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

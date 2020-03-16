@@ -1,0 +1,68 @@
+1 - Obtem uma lista de todos os pokemons catalogadas com os seguintes atributos: número, nome em inglês e tipo;
+
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select ?numero ?nome ?tipo where {
+    ?p a :Pokemon .
+    ?p :Number ?numero .
+    ?p :Name ?nome . 
+    filter(lang(?nome) = 'en')
+    ?p :HasType ?tp .
+    ?tip pokemon:Name ?tipo .
+    filter(lang(?tipo) = 'en')
+} group by ?numero ?nome ?tipo
+
+2 - Quantos pokémons estão catalogadas na ontologia?
+
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select (count(?num) as ?numeroPokemons) where {
+	?p a :Pokemon .
+    ?p :Number ?num .
+}
+
+3 - Quantas evoluções tem o pokémon com número 5?
+
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select (count(*) as ?num) where {
+    ?p :EvolvesFrom ?anterior .
+    ?anterior :EvolvesTo ?seguinte.
+    ?p a :Pokemon.
+    ?p :Number 5.
+}
+
+4 - Quais são os pokémons para os quais pode evoluir o pokémon de nome "Eevee"?
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select ?tipo where {
+    ?p a :Pokemon.
+    ?p :Name "Eevee"@en .
+    ?p :EvolvesFrom ?anterior .
+    ?anterior :EvolvesTo ?seguinte.
+    ?seguinte a :Pokemon .
+    ?seguinte :HasType ?tipo .
+}
+
+5 - Quantos tipos diferentes de pokémons exitem na ontologia?
+
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select (count(distinct ?tipoPokemon) as ?tiposPokemon) where {
+    ?p a :Pokemon .
+    ?p :HasType ?tipo .
+    ?tipo :Name ?tipoPokemon .
+    filter(lang(?tipoPokemon) = 'en') 
+}
+
+6 - Quantos pokémons existem associados a cada tipo?
+
+PREFIX pokemon: <http://www.chalkos.net/ontologies/2015/pokemon#>
+PREFIX : <http://www.chalkos.net/ontologies/2015/pokemon#>
+select ?tipo (count (?nome) as ?numPokemons) where{
+    ?p a :Pokemon .
+    ?p :Number ?numero .
+    ?p :HasType ?tipo .
+    ?p :Name ?nome .
+    filter(lang(?nome) = 'en')
+} group by ?tipo

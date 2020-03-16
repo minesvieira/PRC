@@ -1,0 +1,26 @@
+1 - Que lojas vendem o produto A?
+PREFIX : <http://www.semanticweb.org/maria/ontologies/2020/compras#>
+select ?nome ?email where {
+    ?Loja a :Loja .
+    ?Loja :nome ?nome .
+    ?Loja :email ?email .
+    ?Loja :vende :nivea .
+}
+
+2 - Que produtos são comprados pelo cliente X?
+PREFIX : <http://www.semanticweb.org/maria/ontologies/2020/compras#>
+select ?codigo ?nome where {
+    :Maria :compra ?Produto .
+    ?Produto :codigo ?codigo .
+    ?Produto :nome ?nome .
+}
+3 - Quem são os potenciais clientes da loja Y?
+
+PREFIX : <http://www.semanticweb.org/maria/ontologies/2020/compras#>
+select ?Cliente where {
+    :Continente a :Loja .
+    :Continente :vende ?Produto .
+    ?cli a :Cliente .
+    ?cli :compra ?Produto .
+    ?cli :nome ?Cliente .
+}
