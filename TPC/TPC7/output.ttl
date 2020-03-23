@@ -1,0 +1,3800 @@
+@prefix : <http://www.semanticweb.org/maria/ontologies/2020/2/cinema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/maria/ontologies/2020/2/cinema> .
+
+<http://www.semanticweb.org/maria/ontologies/2020/2/cinema> rdf:type owl:Ontology ;
+                                                             rdfs:comment "Uma ontologia sobre cinema feita na aula." .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#atuou
+:atuou rdf:type owl:ObjectProperty ;
+       owl:inverseOf :temAtor ;
+       rdfs:domain :Pessoa ;
+       rdfs:range :Filme .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#compôs
+:compôs rdf:type owl:ObjectProperty ;
+        owl:inverseOf :foiComposta ;
+        rdfs:domain :Pessoa ;
+        rdfs:range :Peça_Musical .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#escreveu
+:escreveu rdf:type owl:ObjectProperty ;
+          owl:inverseOf :foiEscrito ;
+          rdfs:domain :Pessoa ;
+          rdfs:range [ rdf:type owl:Class ;
+                       owl:unionOf ( :Argumento
+                                     :Livro
+                                   )
+                     ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#foiComposta
+:foiComposta rdf:type owl:ObjectProperty ;
+             rdfs:domain :Peça_Musical ;
+             rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#foiEscrito
+:foiEscrito rdf:type owl:ObjectProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :Argumento
+                                        :Livro
+                                      )
+                        ] ;
+            rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#realizou
+:realizou rdf:type owl:ObjectProperty ;
+          owl:inverseOf :temRealizador .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#representa
+:representa rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temArgumento
+:temArgumento rdf:type owl:ObjectProperty ;
+              rdfs:domain :Filme ;
+              rdfs:range :Argumento .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temAtor
+:temAtor rdf:type owl:ObjectProperty ;
+         rdfs:domain :Filme ;
+         rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temGénero
+:temGénero rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Género .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temLíngua
+:temLíngua rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Língua .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temPaísOrigem
+:temPaísOrigem rdf:type owl:ObjectProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :País .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temPersonagem
+:temPersonagem rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temPeçaMusical
+:temPeçaMusical rdf:type owl:ObjectProperty ;
+                rdfs:domain :Filme ;
+                rdfs:range :Peça_Musical .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#temRealizador
+:temRealizador rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#éPersonagem
+:éPersonagem rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#éRepresentadoPor
+:éRepresentadoPor rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#dataLançamento
+:dataLançamento rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#duração
+:duração rdf:type owl:DatatypeProperty ;
+         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#sexo
+:sexo rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#título
+:título rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Argumento
+:Argumento rdf:type owl:Class ;
+           rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ator
+:Ator rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                 [ rdf:type owl:Class ;
+                                                   owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :atuou ;
+                                                                   owl:someValuesFrom :Filme
+                                                                 ]
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :representa ;
+                                                                   owl:someValuesFrom :Personagem
+                                                                 ]
+                                                               )
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#AtorFeminino
+:AtorFeminino rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :sexo ;
+                                                           owl:hasValue "F"
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#AtorMasculino
+:AtorMasculino rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :sexo ;
+                                                            owl:hasValue "M"
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Compositor
+:Compositor rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :compôs ;
+                                                         owl:someValuesFrom :Peça_Musical
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Escritor
+:Escritor rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :escreveu ;
+                                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Argumento
+                                                                                          :Livro
+                                                                                        )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Filme
+:Filme rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeAmericano
+:FilmeAmericano rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temPaísOrigem ;
+                                                             owl:hasValue :Estados_Unidos
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeAventura
+:FilmeAventura rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :temGénero ;
+                                                            owl:hasValue :Aventura
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeDramático
+:FilmeDramático rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGénero ;
+                                                             owl:hasValue :Drama
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeInfantil
+:FilmeInfantil rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :temGénero ;
+                                                            owl:hasValue :Infantil
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeInteressante
+:FilmeInteressante rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :temGénero ;
+                                                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :Género
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FilmeRomântico
+:FilmeRomântico rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGénero ;
+                                                             owl:hasValue :Romance
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Género
+:Género rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:oneOf ( :Acção
+                                          :Aventura
+                                          :Comédia
+                                          :Drama
+                                          :Ficção
+                                          :Infantil
+                                          :Romance
+                                          :Terror
+                                          :Thriller
+                                        )
+                            ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Livro
+:Livro rdf:type owl:Class ;
+       rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#LongaMetragem
+:LongaMetragem rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :duração ;
+                                                            owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                 owl:onDatatype xsd:integer ;
+                                                                                 owl:withRestrictions ( [ xsd:minExclusive 60
+                                                                                                        ]
+                                                                                                      )
+                                                                               ]
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Língua
+:Língua rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Obra
+:Obra rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#País
+:País rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Personagem
+:Personagem rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Pessoa
+:Pessoa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peça_Musical
+:Peça_Musical rdf:type owl:Class ;
+              rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Realizador
+:Realizador rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :realizou ;
+                                                         owl:someValuesFrom :Filme
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Acção
+:Acção rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alex
+:Alex rdf:type owl:NamedIndividual ,
+               :Personagem .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#ArgumentoTwilight
+:ArgumentoTwilight rdf:type owl:NamedIndividual ,
+                            :Argumento .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Aventura
+:Aventura rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ben_Stiller
+:Ben_Stiller rdf:type owl:NamedIndividual ,
+                      :Pessoa ;
+             :representa :Alex ;
+             :sexo "M" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Billy_Burke
+:Billy_Burke rdf:type owl:NamedIndividual ,
+                      :Pessoa ;
+             :atuou :Twiight ;
+             :sexo "M" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Catherine_Hardwicke
+:Catherine_Hardwicke rdf:type owl:NamedIndividual ,
+                              :Pessoa ;
+                     :realizou :Twiight ;
+                     :sexo "F" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chris_Rock
+:Chris_Rock rdf:type owl:NamedIndividual ,
+                     :Pessoa ;
+            :representa :Marty ;
+            :sexo "M" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Comédia
+:Comédia rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Drama
+:Drama rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Estados_Unidos
+:Estados_Unidos rdf:type owl:NamedIndividual ,
+                         :País .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ficção
+:Ficção rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Francês
+:Francês rdf:type owl:NamedIndividual ,
+                  :Língua .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#França
+:França rdf:type owl:NamedIndividual ,
+                 :País .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gloria
+:Gloria rdf:type owl:NamedIndividual ,
+                 :Personagem .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Infantil
+:Infantil rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Inglaterra
+:Inglaterra rdf:type owl:NamedIndividual ,
+                     :País .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Inglês
+:Inglês rdf:type owl:NamedIndividual ,
+                 :Língua .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kristen_Stewart
+:Kristen_Stewart rdf:type owl:NamedIndividual ,
+                          :Pessoa ;
+                 :atuou :Twiight ;
+                 :sexo "F" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Madagascar2
+:Madagascar2 rdf:type owl:NamedIndividual ,
+                      :Filme ;
+             :temGénero :Aventura ,
+                        :Infantil ;
+             :temPaísOrigem :Estados_Unidos ;
+             :temPersonagem :Alex ,
+                            :Gloria ,
+                            :Marty ,
+                            :Melman ;
+             :dataLançamento "2008-11-07" ;
+             :duração 89 ;
+             :título "Madagascar: Escape 2 Africa" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marty
+:Marty rdf:type owl:NamedIndividual ,
+                :Personagem .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Melissa_Rosenberg
+:Melissa_Rosenberg rdf:type owl:NamedIndividual ,
+                            :Pessoa ;
+                   :escreveu :ArgumentoTwilight ;
+                   :sexo "F" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Melman
+:Melman rdf:type owl:NamedIndividual ,
+                 :Personagem .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Portugal
+:Portugal rdf:type owl:NamedIndividual ,
+                   :País .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Português
+:Português rdf:type owl:NamedIndividual ,
+                    :Língua .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Pattinson
+:Robert_Pattinson rdf:type owl:NamedIndividual ,
+                           :Pessoa ;
+                  :atuou :Twiight ;
+                  :sexo "M" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Romance
+:Romance rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sarah_Clarke
+:Sarah_Clarke rdf:type owl:NamedIndividual ,
+                       :Pessoa ;
+              :atuou :Twiight ;
+              :sexo "F" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Taylor_Lautner
+:Taylor_Lautner rdf:type owl:NamedIndividual ,
+                         :Pessoa ;
+                :atuou :Twiight ;
+                :sexo "M" .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Terror
+:Terror rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Thriller
+:Thriller rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Twiight
+:Twiight rdf:type owl:NamedIndividual ,
+                  :Filme ;
+         :temArgumento :ArgumentoTwilight ;
+         :temGénero :Drama ,
+                    :Romance ,
+                    :Thriller ;
+         :temPaísOrigem :Estados_Unidos ;
+         :dataLançamento "2008-12-04" ;
+         :duração 122 .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Al_Pacino
+:Al_Pacino rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Albert_Finney
+:Albert_Finney rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Andie_MacDowell
+:Andie_MacDowell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anthony_Quinn
+:Anthony_Quinn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ashley_Judd
+:Ashley_Judd rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Audrey_Hepburn
+:Audrey_Hepburn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Brad_Pitt
+:Brad_Pitt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Buster_Keaton
+:Buster_Keaton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cameron_Diaz
+:Cameron_Diaz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Charlton_Heston
+:Charlton_Heston rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Christopher_Lee
+:Christopher_Lee rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Clark_Gable
+:Clark_Gable rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dustin_Hoffman
+:Dustin_Hoffman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gary_Cooper
+:Gary_Cooper rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Goldie_Hawn
+:Goldie_Hawn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#GÚrard_Depardieu
+:GÚrard_Depardieu rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Harrison_Ford
+:Harrison_Ford rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Helen_Hunt
+:Helen_Hunt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_Reno
+:Jean_Reno rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jeff_Bridges
+:Jeff_Bridges rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joan_Crawford
+:Joan_Crawford rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Paul_Jones
+:John_Paul_Jones rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Travolta
+:John_Travolta rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kate_Winslet
+:Kate_Winslet rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#_CBE_
+:_CBE_ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kenneth_Williams
+:Kenneth_Williams rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leonardo_DiCaprio
+:Leonardo_DiCaprio rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leslie_Nielsen
+:Leslie_Nielsen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Meg_Ryan
+:Meg_Ryan rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mel_Gibson
+:Mel_Gibson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Natalie_Portman
+:Natalie_Portman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_Muni
+:Paul_Muni rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ray_Milland
+:Ray_Milland rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Richard_Burton
+:Richard_Burton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rosie_O_Donnell
+:Rosie_O_Donnell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Spencer_Tracy
+:Spencer_Tracy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tom_Cruise
+:Tom_Cruise rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tom_Hanks
+:Tom_Hanks rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Val_Kilmer
+:Val_Kilmer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wallace_Shawn
+:Wallace_Shawn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Akhil_Akkineni
+:Akhil_Akkineni rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Akhil_Akhineni
+:Akhil_Akhineni rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Barry_Miller
+:Barry_Miller rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dennis_Quaid
+:Dennis_Quaid rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ashish_Vidyarthi
+:Ashish_Vidyarthi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Benjamin_Bratt
+:Benjamin_Bratt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dabney_Coleman
+:Dabney_Coleman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Morse
+:David_Morse rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Cullum
+:John_Cullum rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lloyd_Nolan
+:Lloyd_Nolan rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sam_Neill
+:Sam_Neill rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ted_Levine
+:Ted_Levine rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Timothy_Spall
+:Timothy_Spall rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bolek_PolÝvka
+:Bolek_PolÝvka rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Helen_Twelvetrees
+:Helen_Twelvetrees rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Diane_Venora
+:Diane_Venora rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#George_Zucco
+:George_Zucco rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wendi_McLendon-Covey
+:Wendi_McLendon-Covey rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anita_Page
+:Anita_Page rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Forest_Whitaker
+:Forest_Whitaker rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Katharine_Ross
+:Katharine_Ross rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Loggia
+:Robert_Loggia rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Franþois_Cluzet
+:Franþois_Cluzet rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Eddie_Polo
+:Eddie_Polo rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lene_Nystr_Rasted
+:Lene_Nystr_Rasted rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lene_Nystr_Rasted
+:Lene_Nystr_Rasted rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marianne_Stone
+:Marianne_Stone rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alf_Goddard
+:Alf_Goddard rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Henry_Hewitt
+:Henry_Hewitt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Clifton_Collins_Jr_
+:Clifton_Collins_Jr_ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Clifton_Collins
+:Clifton_Collins rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alan_Bates
+:Alan_Bates rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sir_Alan_Bates
+:Sir_Alan_Bates rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bill_Owen
+:Bill_Owen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#_MBE_
+:_MBE_ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dorothy_McGuire
+:Dorothy_McGuire rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Harry_Dean_Stanton
+:Harry_Dean_Stanton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Whitmore
+:James_Whitmore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#June_Foray
+:June_Foray rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stuart_Wilson
+:Stuart_Wilson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tomas_Milian
+:Tomas_Milian rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tomßs_Milißn
+:Tomßs_Milißn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Angela_Lansbury
+:Angela_Lansbury rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dame_Angela_Lansbury
+:Dame_Angela_Lansbury rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ben_Kingsley
+:Ben_Kingsley rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bernard_Hill
+:Bernard_Hill rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Carroll_Baker
+:Carroll_Baker rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Denholm_Elliott
+:Denholm_Elliott rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ed_Harris
+:Ed_Harris rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Edward_G__Robinson
+:Edward_G__Robinson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ethan_Hawke
+:Ethan_Hawke rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Horst_Buchholz
+:Horst_Buchholz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_Simmons
+:Jean_Simmons rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Luise_Rainer
+:Luise_Rainer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marie_Dressler
+:Marie_Dressler rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Steve_Buscemi
+:Steve_Buscemi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#OBE
+:OBE rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tom_Wilkinson
+:Tom_Wilkinson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Hurt
+:William_Hurt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Zeppo_Marx
+:Zeppo_Marx rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marilyn_Burns
+:Marilyn_Burns rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jeanne_Moreau
+:Jeanne_Moreau rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#JoBeth_Williams
+:JoBeth_Williams rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joanna_Gleason
+:Joanna_Gleason rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Una_Merkel
+:Una_Merkel rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Donna_Pescow
+:Donna_Pescow rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#E__G__Marshall
+:E__G__Marshall rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Keith_David
+:Keith_David rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Elsa_De_Giorgi
+:Elsa_De_Giorgi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stewart_Rome
+:Stewart_Rome rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frank_McGlynn_Sr_
+:Frank_McGlynn_Sr_ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_Champion
+:Jean_Champion rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_Lodge
+:Jean_Lodge rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Aldo_Valletti
+:Aldo_Valletti rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Randy_Stuart
+:Randy_Stuart rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anne_Revere
+:Anne_Revere rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anthony_Michael_Hall
+:Anthony_Michael_Hall rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Burl_Ives
+:Burl_Ives rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#GeneviÞve_Bujold
+:GeneviÞve_Bujold rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Henry_Silva
+:Henry_Silva rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ingrid_Pitt
+:Ingrid_Pitt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jeff_Goldblum
+:Jeff_Goldblum rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Luis_Guzmßn
+:Luis_Guzmßn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Pitt
+:Michael_Pitt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Plant
+:Robert_Plant rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Teresa_Wright
+:Teresa_Wright rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Emil_Jannings
+:Emil_Jannings rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frank_Oz
+:Frank_Oz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leslie_Phillips
+:Leslie_Phillips rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#CBE
+:CBE rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ayesha_Dharker
+:Ayesha_Dharker rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bridgette_Wilson
+:Bridgette_Wilson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cecilia_Cheung
+:Cecilia_Cheung rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Zeong1_Paak3_Zi1
+:Zeong1_Paak3_Zi1 rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Charles_Kimbrough
+:Charles_Kimbrough rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Ogden_Stiers
+:David_Ogden_Stiers rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Elisabeth_Shue
+:Elisabeth_Shue rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Emily_Watson
+:Emily_Watson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#_OBE_
+:_OBE_ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hayley_Mills
+:Hayley_Mills rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Margarethe_von_Trotta
+:Margarethe_von_Trotta rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Prakash_Raj
+:Prakash_Raj rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Emma_Samms
+:Emma_Samms rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Harold_Russell
+:Harold_Russell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lee_J__Cobb
+:Lee_J__Cobb rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Butterworth
+:Peter_Butterworth rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ronny_Cox
+:Ronny_Cox rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tommy_Kirk
+:Tommy_Kirk rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Will_Patton
+:Will_Patton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Billy_Curtis
+:Billy_Curtis rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lou_Doillon
+:Lou_Doillon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Grant_Williams
+:Grant_Williams rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#AndrÚ_the_Giant
+:AndrÚ_the_Giant rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Giant_Machine
+:Giant_Machine rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#AndrÚ_Roussimoff
+:AndrÚ_Roussimoff rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_FerrÚ
+:Jean_FerrÚ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#GÚant_FerrÚ
+:GÚant_FerrÚ rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Monster_Eiffel_Tower
+:Monster_Eiffel_Tower rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Monster_Roussimoff
+:Monster_Roussimoff rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anthony_Hopkins
+:Anthony_Hopkins rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sir_Anthony_Hopkins
+:Sir_Anthony_Hopkins rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Arnold_Schwarzenegger
+:Arnold_Schwarzenegger rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bela_Lugosi
+:Bela_Lugosi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Billy_Bob_Thornton
+:Billy_Bob_Thornton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Billy_Crystal
+:Billy_Crystal rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bing_Crosby
+:Bing_Crosby rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Burt_Lancaster
+:Burt_Lancaster rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cary_Elwes
+:Cary_Elwes rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chris_Sarandon
+:Chris_Sarandon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Christopher_Guest
+:Christopher_Guest rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Desi_Arnaz
+:Desi_Arnaz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Drew_Barrymore
+:Drew_Barrymore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Eli_Wallach
+:Eli_Wallach rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frank_Sinatra
+:Frank_Sinatra rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Franþois_Truffaut
+:Franþois_Truffaut rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#George_Peppard
+:George_Peppard rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Groucho_Marx
+:Groucho_Marx rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Lemmon
+:Jack_Lemmon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jennifer_Lopez
+:Jennifer_Lopez rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Wayne
+:John_Wayne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jon_Voight
+:Jon_Voight rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joseph_Cotten
+:Joseph_Cotten rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Julia_Roberts
+:Julia_Roberts rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kelsey_Grammer
+:Kelsey_Grammer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kevin_Spacey
+:Kevin_Spacey rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mandy_Patinkin
+:Mandy_Patinkin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Miranda_Richardson
+:Miranda_Richardson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Nicolas_Cage
+:Nicolas_Cage rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#PenÚlope_Cruz
+:PenÚlope_Cruz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Falk
+:Peter_Falk rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robin_Wright
+:Robin_Wright rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sean_Connery
+:Sean_Connery rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sir_Sean_Connery
+:Sir_Sean_Connery rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sid_James
+:Sid_James rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anne_Bancroft
+:Anne_Bancroft rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anne_Francis
+:Anne_Francis rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Benicio_Del_Toro
+:Benicio_Del_Toro rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Charles_Hawtrey
+:Charles_Hawtrey rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dani
+:Dani rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dev_Anand
+:Dev_Anand rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Donald_Pleasence
+:Donald_Pleasence rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gus_Edwards
+:Gus_Edwards rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Holt
+:Jack_Holt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Gregory
+:James_Gregory rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jason_Lee
+:Jason_Lee rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Wood
+:John_Wood rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marcia_Gay_Harden
+:Marcia_Gay_Harden rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Miguel_Ferrer
+:Miguel_Ferrer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Natasha_Lyonne
+:Natasha_Lyonne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Randy_Quaid
+:Randy_Quaid rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Shari_Headley
+:Shari_Headley rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stephen_Rea
+:Stephen_Rea rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Steve_McQueen
+:Steve_McQueen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Walter_Huston
+:Walter_Huston rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Walter_Pidgeon
+:Walter_Pidgeon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gustav_Frehlich
+:Gustav_Frehlich rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Matthias_Habich
+:Matthias_Habich rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tom_Sizemore
+:Tom_Sizemore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Toni_Collette
+:Toni_Collette rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alex_Rocco
+:Alex_Rocco rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Federico_Luppi
+:Federico_Luppi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gloria_Grahame
+:Gloria_Grahame rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mira_Sorvino
+:Mira_Sorvino rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Patricia_Hodge
+:Patricia_Hodge rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_Sorvino
+:Paul_Sorvino rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Thomas_Mitchell
+:Thomas_Mitchell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Carl_Weathers
+:Carl_Weathers rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Huddleston
+:David_Huddleston rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Esther_Ralston
+:Esther_Ralston rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gillian_Jacobs
+:Gillian_Jacobs rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lila_Kedrova
+:Lila_Kedrova rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Radhika_Apte
+:Radhika_Apte rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#D_Urville_Martin
+:D_Urville_Martin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Earl_Jones
+:James_Earl_Jones rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Richard_Short
+:Richard_Short rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Ryan
+:Robert_Ryan rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sonu
+:Sonu rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sonu_Gowda
+:Sonu_Gowda rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gale_Sondergaard
+:Gale_Sondergaard rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gloria_Stuart
+:Gloria_Stuart rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Amos
+:John_Amos rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kathleen_Robertson
+:Kathleen_Robertson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stockard_Channing
+:Stockard_Channing rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rachel_Ticotin
+:Rachel_Ticotin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Erika_Christensen
+:Erika_Christensen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Geraldine_James
+:Geraldine_James rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Kruschen
+:Jack_Kruschen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jim_Siedow
+:Jim_Siedow rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ken_Marino
+:Ken_Marino rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kenneth_Connor
+:Kenneth_Connor rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Rapaport
+:Michael_Rapaport rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Moore_Marriott
+:Moore_Marriott rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mykelti_Williamson
+:Mykelti_Williamson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_A__Partain
+:Paul_A__Partain rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Riegert
+:Peter_Riegert rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Pierre_Fresnay
+:Pierre_Fresnay rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Susan_Kohner
+:Susan_Kohner rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alan_Alda
+:Alan_Alda rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Simone_ValÞre
+:Simone_ValÞre rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Claudette_Colbert
+:Claudette_Colbert rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Richard_Farnsworth
+:Richard_Farnsworth rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Callie_Thorne
+:Callie_Thorne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gunnar_Bjernstrand
+:Gunnar_Bjernstrand rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Steve_Brodie
+:Steve_Brodie rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alexis_Smith
+:Alexis_Smith rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Edwin_Neal
+:Edwin_Neal rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Douglas
+:Jack_Douglas rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Warden
+:Jack_Warden rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean-Pierre_Aumont
+:Jean-Pierre_Aumont rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joseph_Schildkraut
+:Joseph_Schildkraut rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#June_Havoc
+:June_Havoc rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mary_Elizabeth_Mastrantonio
+:Mary_Elizabeth_Mastrantonio rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Matt_Dillon
+:Matt_Dillon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Patricia_Neal
+:Patricia_Neal rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Powell
+:William_Powell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Martine_Brochard
+:Martine_Brochard rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Donald
+:James_Donald rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jason_Mitchell
+:Jason_Mitchell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rainn_Wilson
+:Rainn_Wilson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Andreas_Wilson
+:Andreas_Wilson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Curt_Bois
+:Curt_Bois rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#D__W__Moffett
+:D__W__Moffett rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Judith_O_Dea
+:Judith_O_Dea rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Keith_Wayne
+:Keith_Wayne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lou_Myers
+:Lou_Myers rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anya_Taylor-Joy
+:Anya_Taylor-Joy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ian_Wolfe
+:Ian_Wolfe rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#J__E__Freeman
+:J__E__Freeman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Scott_Jacoby
+:Scott_Jacoby rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_Langton
+:Paul_Langton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_L__Thorne
+:William_L__Thorne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Amanda_Blake
+:Amanda_Blake rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Amy_Brenneman
+:Amy_Brenneman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Amy_Irving
+:Amy_Irving rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chris_Rock
+:Chris_Rock rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Eva_Marie_Saint
+:Eva_Marie_Saint rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Greta_Garbo
+:Greta_Garbo rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Haile_Gebrselassie
+:Haile_Gebrselassie rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hal_Holbrook
+:Hal_Holbrook rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Herbert_Lom
+:Herbert_Lom rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Gilbert
+:John_Gilbert rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jude_Law
+:Jude_Law rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lionel_Barrymore
+:Lionel_Barrymore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Madeleine_Stowe
+:Madeleine_Stowe rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Raymond_Burr
+:Raymond_Burr rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Taylor
+:Robert_Taylor rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Young
+:Robert_Young rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Terence_Stamp
+:Terence_Stamp rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bruce_Willis
+:Bruce_Willis rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Corey_Feldman
+:Corey_Feldman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Deborah_Kerr
+:Deborah_Kerr rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Flora_Robson
+:Flora_Robson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dame_Flora_Robson
+:Dame_Flora_Robson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Fred_MacMurray
+:Fred_MacMurray rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Fredric_March
+:Fredric_March rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gregory_Peck
+:Gregory_Peck rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Harvey_Keitel
+:Harvey_Keitel rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jack_Benny
+:Jack_Benny rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Mason
+:James_Mason rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean_Hersholt
+:Jean_Hersholt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Candy
+:John_Candy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jon_Bon_Jovi
+:Jon_Bon_Jovi rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Liam_Neeson
+:Liam_Neeson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Martha_Plimpton
+:Martha_Plimpton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Martin_Sheen
+:Martin_Sheen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Max_von_Sydow
+:Max_von_Sydow rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Meryl_Streep
+:Meryl_Streep rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Douglas
+:Michael_Douglas rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Molly_Ringwald
+:Molly_Ringwald rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Norma_Shearer
+:Norma_Shearer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Oliver_Hardy
+:Oliver_Hardy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Mitchum
+:Robert_Mitchum rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rod_Steiger
+:Rod_Steiger rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sigourney_Weaver
+:Sigourney_Weaver rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sissy_Spacek
+:Sissy_Spacek rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Susan_Sarandon
+:Susan_Sarandon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Terry_Scott
+:Terry_Scott rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Uma_Thurman
+:Uma_Thurman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Yul_Brynner
+:Yul_Brynner rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chaney_Kley
+:Chaney_Kley rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mark_Hildreth
+:Mark_Hildreth rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Audrey_Tautou
+:Audrey_Tautou rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Burgess_Meredith
+:Burgess_Meredith rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Christopher_Plummer
+:Christopher_Plummer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Daryl_Hannah
+:Daryl_Hannah rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Brolin
+:James_Brolin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jaye_Davidson
+:Jaye_Davidson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Aspel
+:Michael_Aspel rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Pat_Morita
+:Pat_Morita rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Victor_Garber
+:Victor_Garber rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Edward_Herrmann
+:Edward_Herrmann rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Britt_Ekland
+:Britt_Ekland rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Donna_Reed
+:Donna_Reed rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kenneth_More
+:Kenneth_More rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Ironside
+:Michael_Ironside rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ben_Mendelsohn
+:Ben_Mendelsohn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Edward_Woodward
+:Edward_Woodward rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Noah_Taylor
+:Noah_Taylor rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Philip_Michael_Thomas
+:Philip_Michael_Thomas rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Valentina_Cortese
+:Valentina_Cortese rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Edmund_Lowe
+:Edmund_Lowe rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joseph_Cali
+:Joseph_Cali rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Madge_Kennedy
+:Madge_Kennedy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Takahiro_Tamura
+:Takahiro_Tamura rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_Sparks
+:Paul_Sparks rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Johnny_Butt
+:Johnny_Butt rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anuradha
+:Anuradha rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Barbara_Windsor
+:Barbara_Windsor rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bill_Pullman
+:Bill_Pullman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Catherine_Zeta-Jones
+:Catherine_Zeta-Jones rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Charles_Bronson
+:Charles_Bronson rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chico_Marx
+:Chico_Marx rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Connor_Jessup
+:Connor_Jessup rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dana_Andrews
+:Dana_Andrews rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Don_Cheadle
+:Don_Cheadle rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Eddie_Murphy
+:Eddie_Murphy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#George_Murphy
+:George_Murphy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Howard_Keel
+:Howard_Keel rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Irene_Papas
+:Irene_Papas rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jena_Malone
+:Jena_Malone rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Barrymore
+:John_Barrymore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Karl_Malden
+:Karl_Malden rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kurt_Russell
+:Kurt_Russell rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Linus_Roache
+:Linus_Roache rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marion_Davies
+:Marion_Davies rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Michael_Murphy
+:Michael_Murphy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ricardo_Cortez
+:Ricardo_Cortez rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Walker
+:Robert_Walker rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sharon_Stone
+:Sharon_Stone rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Smith
+:William_Smith rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Brian_Keith
+:Brian_Keith rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Danny_Nucci
+:Danny_Nucci rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Duane_Jones
+:Duane_Jones rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Hong
+:James_Hong rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leslie_Perrins
+:Leslie_Perrins rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Mayhew
+:Peter_Mayhew rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Vivian_Reed
+:Vivian_Reed rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Andy_Lau
+:Andy_Lau rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Li·_DÚhuß
+:Li·_DÚhuß rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lau4_Dak1waa4
+:Lau4_Dak1waa4 rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anthony_Daniels
+:Anthony_Daniels rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Buddy_Ebsen
+:Buddy_Ebsen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Carrie_Fisher
+:Carrie_Fisher rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Charlie_Sheen
+:Charlie_Sheen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chris_Barrie
+:Chris_Barrie rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Corey_Haim
+:Corey_Haim rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Danny_Aiello
+:Danny_Aiello rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Warner
+:David_Warner rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Diane_Keaton
+:Diane_Keaton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Fran_Drescher
+:Fran_Drescher rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Fred_Willard
+:Fred_Willard rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#George_Takei
+:George_Takei rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gina_Gershon
+:Gina_Gershon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gina_L__Gershon
+:Gina_L__Gershon rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gunnar_Hansen
+:Gunnar_Hansen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Haley_Joel_Osment
+:Haley_Joel_Osment rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ingrid_Thulin
+:Ingrid_Thulin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#James_Dean_Bradfield
+:James_Dean_Bradfield rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jamie_Foxx
+:Jamie_Foxx rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jane_Wyman
+:Jane_Wyman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jenna_Elfman
+:Jenna_Elfman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jim_Dale
+:Jim_Dale rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jimmy_Page
+:Jimmy_Page rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Bonham
+:John_Bonham rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Cale
+:John_Cale rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Julianne_Moore
+:Julianne_Moore rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kathy_Bates
+:Kathy_Bates rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kenny_Baker
+:Kenny_Baker rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mariel_Hemingway
+:Mariel_Hemingway rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mathieu_Kassovitz
+:Mathieu_Kassovitz rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mike_Jittlov
+:Mike_Jittlov rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ming-Na_Wen
+:Ming-Na_Wen rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Myrna_Loy
+:Myrna_Loy rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Stormare
+:Peter_Stormare rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Vaughn
+:Robert_Vaughn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Shirley_MacLaine
+:Shirley_MacLaine rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Steven_Bauer
+:Steven_Bauer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tim_Roth
+:Tim_Roth rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Timothy_Hutton
+:Timothy_Hutton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Haines
+:William_Haines rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Prowse
+:David_Prowse rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Virginia_Mayo
+:Virginia_Mayo rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alison_Doody
+:Alison_Doody rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Burt_Young
+:Burt_Young rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Celeste_Holm
+:Celeste_Holm rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Denis_O_Hare
+:Denis_O_Hare rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Karen_Lynn_Gorney
+:Karen_Lynn_Gorney rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lauren_Holly
+:Lauren_Holly rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marvin_Miller
+:Marvin_Miller rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mo_Nique
+:Mo_Nique rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rebecca_Miller
+:Rebecca_Miller rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Russell_Brand
+:Russell_Brand rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stan_Laurel
+:Stan_Laurel rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Will_Ryan
+:Will_Ryan rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Yvonne_Craig
+:Yvonne_Craig rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Barry_Fitzgerald
+:Barry_Fitzgerald rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ben_Affleck
+:Ben_Affleck rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bernard_Bresslaw
+:Bernard_Bresslaw rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cian_Ciaran
+:Cian_Ciaran rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cian_Ciarßn
+:Cian_Ciarßn rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hattie_Jacques
+:Hattie_Jacques rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Huw_Bunford
+:Huw_Bunford rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jacqueline_Bisset
+:Jacqueline_Bisset rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joan_Sims
+:Joan_Sims rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Garfield
+:John_Garfield rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Laurence_Fishburne
+:Laurence_Fishburne rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Laurence_Harvey
+:Laurence_Harvey rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lewis_Stone
+:Lewis_Stone rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Montgomery_Clift
+:Montgomery_Clift rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Duvall
+:Robert_Duvall rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wallace_Beery
+:Wallace_Beery rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Warner_Baxter
+:Warner_Baxter rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Will_Smith
+:Will_Smith rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bill_Kerr
+:Bill_Kerr rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Goodman
+:John_Goodman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lloyd_Bridges
+:Lloyd_Bridges rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bill_Paxton
+:Bill_Paxton rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Brigitte_Helm
+:Brigitte_Helm rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jason_Robards
+:Jason_Robards rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jean-Pierre_LÚaud
+:Jean-Pierre_LÚaud rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#John_Turturro
+:John_Turturro rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Margaret_Colin
+:Margaret_Colin rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Noah_Wyle
+:Noah_Wyle rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alison_Lohman
+:Alison_Lohman rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Caterina_Boratto
+:Caterina_Boratto rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frances_Fisher
+:Frances_Fisher rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Martha_Hyer
+:Martha_Hyer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sotiris_Moustakas
+:Sotiris_Moustakas rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Justin_Chambers
+:Justin_Chambers rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bruno_Kirby
+:Bruno_Kirby rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Judy_Greer
+:Judy_Greer rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Patrick_Cranshaw
+:Patrick_Cranshaw rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stephy_Tang
+:Stephy_Tang rdf:type owl:NamedIndividual ,
+                :Ator ;
+                :Pessoa .
+
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Clint_Eastwood
+:Clint_Eastwood rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cole_Porter
+:Cole_Porter rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frederick_Loewe
+:Frederick_Loewe rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Henry_Mancini
+:Henry_Mancini rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Irving_Berlin
+:Irving_Berlin rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kenneth_Williams
+:Kenneth_Williams rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kurt_Weill
+:Kurt_Weill rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Stephen_Sondheim
+:Stephen_Sondheim rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Trevor_Jones
+:Trevor_Jones rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Renzo_Rossellini
+:Renzo_Rossellini rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Alan_Silvestri
+:Alan_Silvestri rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Andrea_Guerra
+:Andrea_Guerra rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Frank_Fitzpatrick
+:Frank_Fitzpatrick rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Roy_Webb
+:Roy_Webb rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Will_Schaefer
+:Will_Schaefer rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Nathan_Barr
+:Nathan_Barr rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ram_Sampath
+:Ram_Sampath rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Taro_Iwashiro
+:Taro_Iwashiro rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paul_Baillargeon
+:Paul_Baillargeon rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chan_Fai_Young
+:Chan_Fai_Young rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Can4_Fai1_Joeng4
+:Can4_Fai1_Joeng4 rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chan_Fai-young
+:Chan_Fai-young rdf:type owl:NamedIndividual ,
+                :Compositor ;
+                :Pessoa .
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Arnold_Bennett
+:Arnold_Bennett rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Billy_Wilder
+:Billy_Wilder rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Elia_Kazan
+:Elia_Kazan rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Luc_Besson
+:Luc_Besson rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Moss_Hart
+:Moss_Hart rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Peter_Weir
+:Peter_Weir rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tod_Browning
+:Tod_Browning rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Vladimir_Nabokov
+:Vladimir_Nabokov rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Faulkner
+:William_Faulkner rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Goldman
+:William_Goldman rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Shakespeare
+:William_Shakespeare rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wim_Wenders
+:Wim_Wenders rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Woody_Allen
+:Woody_Allen rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Babaloo_Mandel
+:Babaloo_Mandel rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Hare
+:David_Hare rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sir_David_Hare
+:Sir_David_Hare rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Jim_Vallely
+:Jim_Vallely rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joe_Harris
+:Joe_Harris rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leon_Uris
+:Leon_Uris rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Maher_Sabry
+:Maher_Sabry rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Matthew_Chapman
+:Matthew_Chapman rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Nanni_Moretti
+:Nanni_Moretti rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rajiv_Joseph
+:Rajiv_Joseph rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Roland_Kibbee
+:Roland_Kibbee rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Thomas_Meehan
+:Thomas_Meehan rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#William_Archer
+:William_Archer rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Oliver_Stone
+:Oliver_Stone rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#David_Zucker
+:David_Zucker rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Fernanda_Torres
+:Fernanda_Torres rdf:type owl:NamedIndividual ,
+                :Escritor ;
+                :Pessoa .
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#12_Monkeys
+:12_Monkeys rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Airplane
+:Airplane rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#American_Beauty
+:American_Beauty rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#AmÚlie
+:AmÚlie rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Andrzej_Wajda
+:Andrzej_Wajda rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Animal_Crackers
+:Animal_Crackers rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anne_of_the_Thousand_Days
+:Anne_of_the_Thousand_Days rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anywhere_but_Here
+:Anywhere_but_Here rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Armageddon
+:Armageddon rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Arms_and_the_Man
+:Arms_and_the_Man rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Beautiful_Girls
+:Beautiful_Girls rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Black_Narcissus
+:Black_Narcissus rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Breakfast_at_Tiffany_s
+:Breakfast_at_Tiffany_s rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Carry_On
+:Carry_On rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Casablanca
+:Casablanca rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cast_Away
+:Cast_Away rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chang:_A_Drama_of_the_Wilderness
+:Chang:_A_Drama_of_the_Wilderness rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Coming_to_America
+:Coming_to_America rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Crossfire
+:Crossfire rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Donnie_Darko
+:Donnie_Darko rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Everyone_Says_I_Love_You
+:Everyone_Says_I_Love_You rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Eyeball
+:Eyeball rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Forbidden_Planet
+:Forbidden_Planet rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Forrest_Gump
+:Forrest_Gump rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French_Kiss
+:French_Kiss rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#From_Here_to_Eternity
+:From_Here_to_Eternity rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gattaca
+:Gattaca rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gedeon_Burkhard
+:Gedeon_Burkhard rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gentleman_s_Agreement
+:Gentleman_s_Agreement rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Gillian_Anderson
+:Gillian_Anderson rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Glenn_Close
+:Glenn_Close rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Going_My_Way
+:Going_My_Way rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Grand_Hotel
+:Grand_Hotel rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Green_Card
+:Green_Card rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Heat
+:Heat rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Henry_Fonda
+:Henry_Fonda rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#In_Old_Arizona
+:In_Old_Arizona rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#In_the_Bedroom
+:In_the_Bedroom rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Independence_Day
+:Independence_Day rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Indiana_Jones_and_the_Last_Crusade
+:Indiana_Jones_and_the_Last_Crusade rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#It_Happened_One_Night
+:It_Happened_One_Night rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Janet_Gaynor
+:Janet_Gaynor rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Joan_Crawford
+:Joan_Crawford rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#K-19:_The_Widowmaker
+:K-19:_The_Widowmaker rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lara_Croft:_Tomb_Raider
+:Lara_Croft:_Tomb_Raider rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Leaving_Las_Vegas
+:Leaving_Las_Vegas rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#LÚon:_The_Professional
+:LÚon:_The_Professional rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mars_Needs_Women
+:Mars_Needs_Women rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Metropolis
+:Metropolis rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Midnight_Cowboy
+:Midnight_Cowboy rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Miller_s_Crossing
+:Miller_s_Crossing rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mulan
+:Mulan rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Night_of_the_Living_Dead
+:Night_of_the_Living_Dead rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Powaqqatsi
+:Powaqqatsi rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Pulp_Fiction
+:Pulp_Fiction rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Raiders_of_the_Lost_Ark
+:Raiders_of_the_Lost_Ark rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Reds
+:Reds rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Resident_Evil
+:Resident_Evil rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Return_of_the_Jedi
+:Return_of_the_Jedi rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Robert_Urich
+:Robert_Urich rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Rocky
+:Rocky rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Salor_the_120_Days_of_Sodom
+:Salor_the_120_Days_of_Sodom rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#San_Francisco
+:San_Francisco rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Saturday_Night_Fever
+:Saturday_Night_Fever rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Scared_to_Death
+:Scared_to_Death rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Seven_Samurai
+:Seven_Samurai rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Soylent_Green
+:Soylent_Green rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Attack_of_the_Clones
+:Attack_of_the_Clones rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Star_Wars:_Episode_II__
+:Star_Wars:_Episode_II__ rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Phantom_Menace
+:The_Phantom_Menace rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Star_Wars:_Episode_I__
+:Star_Wars:_Episode_I__ rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Star_Wars
+:Star_Wars rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#THX_1138
+:THX_1138 rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Taxi_Driver
+:Taxi_Driver rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Apartment
+:The_Apartment rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Best_Years_of_Our_Lives
+:The_Best_Years_of_Our_Lives rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Big_Country
+:The_Big_Country rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Big_Fisherman
+:The_Big_Fisherman rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Big_Lebowski
+:The_Big_Lebowski rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Breakfast_Club
+:The_Breakfast_Club rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Crying_Game
+:The_Crying_Game rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Day_After
+:The_Day_After rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Empire_Strikes_Back
+:The_Empire_Strikes_Back rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Graduate
+:The_Graduate rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Great_Ziegfeld
+:The_Great_Ziegfeld rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Greatest_Show_on_Earth
+:The_Greatest_Show_on_Earth rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Hollywood_Revue_of_1929
+:The_Hollywood_Revue_of_1929 rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Incredible_Shrinking_Man
+:The_Incredible_Shrinking_Man rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Last_Laugh
+:The_Last_Laugh rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Der_letzte_Mann
+:Der_letzte_Mann rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Life_of_Emile_Zola
+:The_Life_of_Emile_Zola rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Little_Girl_Who_Lives_Down_the_Lane
+:The_Little_Girl_Who_Lives_Down_the_Lane rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Lost_Weekend
+:The_Lost_Weekend rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Luzhin_Defence
+:The_Luzhin_Defence rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Magnificent_Seven
+:The_Magnificent_Seven rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Manchurian_Candidate
+:The_Manchurian_Candidate rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Parent_Trap
+:The_Parent_Trap rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Princess_Bride
+:The_Princess_Bride rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Rock
+:The_Rock rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Silence_of_the_Lambs
+:The_Silence_of_the_Lambs rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Sixth_Sense
+:The_Sixth_Sense rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Song_Remains_the_Same
+:The_Song_Remains_the_Same rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Straight_Story
+:The_Straight_Story rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Terrorist
+:The_Terrorist rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Texas_Chain_Saw_Massacre
+:The_Texas_Chain_Saw_Massacre rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Thing
+:The_Thing rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_War_Game
+:The_War_Game rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Wedding_Planner
+:The_Wedding_Planner rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Wicker_Man
+:The_Wicker_Man rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Wizard_of_Speed_and_Time
+:The_Wizard_of_Speed_and_Time rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#The_Year_of_Living_Dangerously
+:The_Year_of_Living_Dangerously rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Titanic
+:Titanic rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Toho_Co__Ltd_
+:Toho_Co__Ltd_ rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tora_Tora_Tora
+:Tora_Tora_Tora rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Total_Recall
+:Total_Recall rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Toy_Story
+:Toy_Story rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Traffic
+:Traffic rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Trekkies
+:Trekkies rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#U-571
+:U-571 rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Unbreakable
+:Unbreakable rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Until_the_End_of_the_World
+:Until_the_End_of_the_World rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Vanilla_Sky
+:Vanilla_Sky rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wall_Street
+:Wall_Street rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#WarGames
+:WarGames rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#When_Harry_Met_Sallyà
+:When_Harry_Met_Sallyà rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Where_The_Heart_Is
+:Where_The_Heart_Is rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_Divide_and_Conquer
+:Why_We_Fight:_Divide_and_Conquer rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_Prelude_to_War
+:Why_We_Fight:_Prelude_to_War rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_The_Battle_of_Britain
+:Why_We_Fight:_The_Battle_of_Britain rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_The_Battle_of_China
+:Why_We_Fight:_The_Battle_of_China rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_The_Battle_of_Russia__Part_1_
+:Why_We_Fight:_The_Battle_of_Russia__Part_1_ rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_The_Battle_of_Russia__Part_2_
+:Why_We_Fight:_The_Battle_of_Russia__Part_2_ rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_The_Nazis_Strike
+:Why_We_Fight:_The_Nazis_Strike rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Why_We_Fight:_War_Comes_to_America
+:Why_We_Fight:_War_Comes_to_America rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wild_Strawberries
+:Wild_Strawberries rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Wings_of_Desire
+:Wings_of_Desire rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Zorba_the_Greek
+:Zorba_the_Greek rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Abraham_Lincoln
+:Abraham_Lincoln rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Adored
+:Adored rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Age_of_Consent
+:Age_of_Consent rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Akhil-The_Power_Of_Jua
+:Akhil-The_Power_Of_Jua rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Akhil_Mishra
+:Akhil_Mishra rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Amandla:_A_Revolution_in_Four-Part_Harmony
+:Amandla:_A_Revolution_in_Four-Part_Harmony rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Amara
+:Amara rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Anniversary
+:Anniversary rdf:type owl:NamedIndividual ,
+                :Filme .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Army_of_One
+:Army_of_One rdf:type owl:NamedIndividual ,
+                :Filme .
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English
+:English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French
+:French rdf:type owl:NamedIndividual ,
+                :Língua .
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#German
+:German rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Russian
+:Russian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italian
+:Italian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Norwegian
+:Norwegian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Japanese
+:Japanese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hebrew
+:Hebrew rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Spanish
+:Spanish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Turkish
+:Turkish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tamil
+:Tamil rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_intertitles
+:English_intertitles rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Silent
+:Silent rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cantonese
+:Cantonese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hindi
+:Hindi rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Danish
+:Danish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Inuktitut
+:Inuktitut rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mandarin
+:Mandarin rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mayan_Languages
+:Mayan_Languages rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Malayalam
+:Malayalam rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Telugu
+:Telugu rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Dutch
+:Dutch rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Latin
+:Latin rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mandarin_Chinese
+:Mandarin_Chinese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Finnish
+:Finnish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Japanese_English
+:Japanese_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Portuguese
+:Portuguese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Armenian
+:Armenian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italian_English
+:Italian_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Persian
+:Persian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italian__German
+:Italian__German rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Thai
+:Thai rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Russian_German
+:Russian_German rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Albanian
+:Albanian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ukrainian
+:Ukrainian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Swedish
+:Swedish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Serbian
+:Serbian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Odia
+:Odia rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Arabic
+:Arabic rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Bengali
+:Bengali rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Greek
+:Greek rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_Russian
+:English_Russian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Korean
+:Korean rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Polish
+:Polish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#HindiUrdu
+:HindiUrdu rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Flemish
+:Flemish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Indonesian
+:Indonesian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Norwegian_and_English
+:Norwegian_and_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English__Tagalog
+:English__Tagalog rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#German_English_Italian
+:German_English_Italian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Croatian
+:Croatian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Czech
+:Czech rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Serbo-Croatian
+:Serbo-Croatian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hungarian
+:Hungarian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kannada
+:Kannada rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Indonesian_Malay
+:Indonesian_Malay rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sicilian
+:Sicilian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Punjabi
+:Punjabi rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Swahili
+:Swahili rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#http:dbpedia_orgresourceEnglish_language
+:http:dbpedia_orgresourceEnglish_language rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_Cantonese
+:English_Cantonese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French_Polish
+:French_Polish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tunisian_Arabic
+:Tunisian_Arabic rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Romanian
+:Romanian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Estonian
+:Estonian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Marathi
+:Marathi rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English__Spanish
+:English__Spanish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Chinese
+:Chinese rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Russian_German_English
+:Russian_German_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Turkish__Kurdish_Armenian
+:Turkish__Kurdish_Armenian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Urdu
+:Urdu rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French_English
+:French_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Silent_with_English_intertitles
+:Silent_with_English_intertitles rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Aramaic
+:Aramaic rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Syriac
+:Syriac rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English
+:English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FrenchEnglish
+:FrenchEnglish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Macedonian
+:Macedonian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#ItalianEnglish
+:ItalianEnglish rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Silent_film
+:Silent_film rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_German_Russian
+:English_German_Russian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_language
+:English_language rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italian_German_English
+:Italian_German_English rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English__German
+:English__German rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#English_German
+:English_German rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French__Italian
+:French__Italian rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Icelandic
+:Icelandic rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French_intertitles
+:French_intertitles rdf:type owl:NamedIndividual ,
+                :Língua .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France
+:France rdf:type owl:NamedIndividual ,
+                :Língua .
+
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States
+:United_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_Kingdom
+:United_Kingdom rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Germany
+:Germany rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Japan
+:Japan rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France
+:France rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ireland
+:Ireland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Australia
+:Australia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States_Australia
+:United_States_Australia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#West_Germany
+:West_Germany rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#India
+:India rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Canada
+:Canada rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hong_Kong
+:Hong_Kong rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Belgium
+:Belgium rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Luxembourg
+:Luxembourg rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#USA
+:USA rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Denmark
+:Denmark rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#China
+:China rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Spain
+:Spain rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_StatesItaly
+:United_StatesItaly rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Israel
+:Israel rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Venezuela
+:Venezuela rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italy
+:Italy rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mexico
+:Mexico rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Panama
+:Panama rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Netherlands
+:Netherlands rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#US
+:US rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Finland
+:Finland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Argentina
+:Argentina rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Kazakhstan
+:Kazakhstan rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Russia
+:Russia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Turkey
+:Turkey rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Portugal
+:Portugal rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Soviet_Union
+:Soviet_Union rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Sweden
+:Sweden rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Iran
+:Iran rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#UK
+:UK rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italy_West_Germany
+:Italy_West_Germany rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Thailand
+:Thailand rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Taiwan
+:Taiwan rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Albania
+:Albania rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States
+:United_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ukraine
+:Ukraine rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Lebanon
+:Lebanon rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Qatar
+:Qatar rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Cuba
+:Cuba rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#USSR
+:USSR rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#U_S_
+:U_S_ rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Puerto_Rico
+:Puerto_Rico rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Brazil
+:Brazil rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Norway
+:Norway rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Mexico_United_States
+:Mexico_United_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Scotland
+:Scotland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Greece
+:Greece rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Great_Britain
+:Great_Britain rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Luxemburg
+:Luxemburg rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#South_Korea
+:South_Korea rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Poland
+:Poland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Weimar_Republic
+:Weimar_Republic rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Yugoslavia
+:Yugoslavia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Belgium__France
+:Belgium__France rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Indonesia
+:Indonesia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#ItalyUnited_States
+:ItalyUnited_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_Kingdom__United_States
+:United_Kingdom__United_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Philippines
+:Philippines rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Romania
+:Romania rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France__Italy
+:France__Italy rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Czechoslovakia
+:Czechoslovakia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Hungary
+:Hungary rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#England
+:England rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Croatia
+:Croatia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Morocco
+:Morocco rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Iceland
+:Iceland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Austria
+:Austria rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France_Poland_Norway
+:France_Poland_Norway rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Tunisia
+:Tunisia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#UAE
+:UAE rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States_United_Kingdom
+:United_States_United_Kingdom rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Malaysia
+:Malaysia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Estonia
+:Estonia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#South_Africa
+:South_Africa rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Liechtenstein
+:Liechtenstein rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Pakistan
+:Pakistan rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#NorwayFrance
+:NorwayFrance rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Ireland_United_Kingdom
+:Ireland_United_Kingdom rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Czech_Republic
+:Czech_Republic rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Paraguay
+:Paraguay rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Switzerland
+:Switzerland rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#East_Germany
+:East_Germany rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#IsraelUnited_States
+:IsraelUnited_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Uruguay
+:Uruguay rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Soviet_Union_France
+:Soviet_Union_France rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#New_Zealand
+:New_Zealand rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Aruba
+:Aruba rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France
+:France rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#West_Germany_Italy
+:West_Germany_Italy rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Poland_USSR
+:Poland_USSR rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States_Japan
+:United_States_Japan rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#India
+:India rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_states
+:United_states rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#india
+:india rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#FranceUnited_States
+:FranceUnited_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Australia__UK
+:Australia__UK rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Macedonia
+:Macedonia rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#ItalyUK
+:ItalyUK rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#ArgentinaSpain
+:ArgentinaSpain rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Nazi_Germany
+:Nazi_Germany rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France_Italy_United_States
+:France_Italy_United_States rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#United_States__United_Kingdom
+:United_States__United_Kingdom rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France__United_Kingdom
+:France__United_Kingdom rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#U_S___Canada
+:U_S___Canada rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#People_s_Republic_of_China
+:People_s_Republic_of_China rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#Italy__France
+:Italy__France rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#France__Italy__Austria
+:France__Italy__Austria rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#British
+:British rdf:type owl:NamedIndividual ,
+                :País .
+###  http://www.semanticweb.org/maria/ontologies/2020/2/cinema#French
+:French rdf:type owl:NamedIndividual ,
+                :País .
+
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
