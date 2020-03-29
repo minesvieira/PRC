@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 8</title>
+        <subtitle>API para Ontologia sobre cinema </subtitle>
+        <bdate>Março 2020</bdate>
+        <edate>Março 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>pg39292@alunos.uminho.pt</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi a criação e implementação de uma API de dados sobre uma ontologia de cinema, criada na aula.</p> 
+        <p>  Foram pedidas três classes: filmes, atores e personagens. O filmes deveria ter a rota /filmes onde se mostravam os filmes com informações sobre os mesmos, e tinhamos também a rota /filmes/:id com vários campos associados, incluíndo ver produtores,atores, género e personagems através do seu identificador.  </p>
+        <p> Tinhamos mais quatro rotas: atores/, atores/:id, personagens/ e personagens/:id, onde listava os atores e personagens e também conseguimos aceder a cada identificador.</p>
+        <p> Foram criados ficheiros distintos para os produtores, atores, géneros e personagens, que posteriormente foram chamados ao pedido GET da rota dos filmes, para cada indentificador do filme. </p>
+    </abstract>
+    <deliverables>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC8">O meu github</deliverable>
+    </deliverables>
+</pr>
+
