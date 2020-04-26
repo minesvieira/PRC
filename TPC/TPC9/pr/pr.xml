@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/Maria/Desktop/pr.dtd">
+<pr>
+    <meta>
+        <keyname>Maria_MEI2020</keyname>
+        <title>Trabalho de casa número 8</title>
+        <subtitle>API para Ontologia sobre cinema </subtitle>
+        <bdate>Março 2020</bdate>
+        <edate>Março 2020</edate>
+        <supervisor>
+            <name>Professor José Carlos Ramalho</name>
+            <email>jcr@uminho.pt</email>
+            <homepage>http://www4.di.uminho.pt/~jcr/</homepage>
+        </supervisor>
+    </meta>
+    <workteam>
+        <member>
+            <identifier>PG39292</identifier>
+            <name> Maria Inês Vieira Pinto</name>
+            <email>pg39292@alunos.uminho.pt</email>
+            <photo path="maria.jpg"/>
+        </member>
+    </workteam>
+    <abstract>
+        <p> O <b> objetivo</b> deste trabalho de casa foi a criação e implementação de uma API de dados sobre uma ontologia de cinema, criada na aula em que a interface foi também criada em <i>VUE</i>.</p> 
+        <p>  Foram pedidas pelo docente 2 rotas novas: /atores e /atores/:id.  </p>
+        <p> Desta forma, criei uma página com a lista de atores com os seguintes atributos: id, nome e sexo <b>(ListaAtores.vue)</b>. De seguida, foi também criada uma página de cada ator individualmente, onde é apresentado o seu nome, género e também os filmes em que esse mesmo ator participou <b>(ConsultaAtores.vue)</b>.</p>
+        <p> Por último, criei também as rotas dos personagens: /personagens e /personagens/:id. O <b>ListaPersonagens.vue</b> apresenta a lista de atores com o seu id e o nome. Ao clicarmos em "Operações", conseguimos obter cada personagem individualmente com os campos nome e os filmes em que essas personagens participaram. <b>(ConsultaPersonagens.vue)</b></p>
+
+    </abstract>
+    <deliverables>
+        <deliverable path="https://github.com/minesvieira/PRC/tree/master/TPC/TPC9">O meu github</deliverable>
+    </deliverables>
+</pr>
+
