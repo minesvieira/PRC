@@ -1,0 +1,72 @@
+1 - Tios
+
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+ construct {
+            ?sobrinho :hasUncle ?tio .    
+        } where {
+            ?p a :Person .
+            ?p :hasSibling ?tio .
+            ?p :hasChild ?sobrinho .
+        }
+
+2 - Primos 
+
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+construct {
+            ?c :hasCousin ?primo .    
+        } where {
+            ?p a :Person .
+            ?p :hasChild ?c .
+            ?p :hasSibling ?tio .
+            ?tio :hasChild ?primo .
+        }
+
+3 - Ancestrais
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+construct {
+    ?p :hasAncestor ?ancestor .
+} where {
+    ?p a :Person .
+    ?p :hasParent+ ?ancestor .
+}
+
+4 - Descendentes
+
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+construct {
+    ?p :hasDescendent ?descendente .
+} where {
+    ?p a :Person .
+    ?p :hasChild+ ?descendente .
+}
+
+5 - Cunhados
+
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+construct {
+    ?p1 :hasSiblingInLaw ?cunhado1 .
+    ?p2 :hasSiblingInLaw ?cunhado2 .
+} where {
+    ?p1 a :Person .
+    ?p1 :hasChild ?c .
+    ?c :hasParent ?p2 .
+    ?p1 :hasSibling ?cunhado1 .
+    ?p2:hasSibling ?cunhado2 .
+    filter(?p1 != ?p2) .
+}
+
+6 - Sogros
+
+PREFIX : <http://www.di.uminho.pt/prc2020/familyTree#>
+construct {
+    ?p1 :hasParentInLaw ?sogro1.
+    ?p2 :hasParentInLaw ?sogro2 .
+} where {
+    ?p1 a :Person .
+    ?p1 :hasChild ?c .
+    ?c :hasParent ?p2 .
+    ?p1 :hasParent ?sogro1 .
+    ?p2:hasParent ?sogro2 .
+    filter(?p1 != ?p2) .
+}
+
